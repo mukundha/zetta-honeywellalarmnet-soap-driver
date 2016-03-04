@@ -8,5 +8,19 @@ var HoneywellAlarmNetScout = module.exports = function() {
 util.inherits(HoneywellAlarmNetScout, Scout);
 
 HoneywellAlarmNetScout.prototype.init = function(next) {
+
+  var self = this;
+
+  var query = this.server.where({type: 'security'});
+
+  this.server.find(query, function(err, results) {
+    if (results[0]) {
+      self.provision(results[0], HoneywellAlarmNet);
+    } else {
+      self.discover(HoneywellAlarmNet);
+    }
+  });
+
   next();
+
 };
