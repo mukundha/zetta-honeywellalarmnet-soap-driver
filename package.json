@@ -1,0 +1,25 @@
+{
+  "name": "zetta-honeywellalarmnet-soap-driver",
+  "version": "0.0.1",
+  "description": "A Zetta driver for the Honeywell AlarmNet Direct SOAP API",
+  "main": "index.js",
+  "scripts": {
+  },
+  "license": "MIT",
+  "dependencies": {
+    "zetta-scout": "^0.6.0",
+    "zetta-device": "~0.18.0"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "devDependencies": {
+  },
+  "keywords": [
+    "zetta",
+    "honeywell",
+    "alarmnet",
+    "iot",
+    "soap"
+  ]
+}

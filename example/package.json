@@ -1,0 +1,15 @@
+{
+  "name": "zetta-honeywellalarmnet-soap-driver-example-server",
+  "version": "0.0.1",
+  "description": "A Zetta driver for the Honeywell AlarmNet Direct SOAP API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "zetta": "~1.0.0-beta.6"
+  }
+}
