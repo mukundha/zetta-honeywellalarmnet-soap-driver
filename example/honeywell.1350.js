@@ -3,4 +3,4 @@ var HoneywellAlarmNet = require('../index');
 
 zetta()
   .use(HoneywellAlarmNet)
-  .listen(1337);
+  .listen(1350);
