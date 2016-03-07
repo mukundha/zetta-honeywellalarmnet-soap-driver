@@ -2,7 +2,7 @@ var Device = require('zetta-device');
 var util = require('util');
 var soap = require('soap');
 
-var HoneywellAlarmNet = module.exports = function(soapURL, userName,password) {
+var HoneywellAlarmNet = module.exports = function(soapURL, userName, password, applicationId, applicationVersion) {
   Device.call(this);
   this.panelFullStatusByDeviceIDResult = null;
   
@@ -10,6 +10,9 @@ var HoneywellAlarmNet = module.exports = function(soapURL, userName,password) {
   this._soapClient = null;
   this._userName = userName;
   this._password = password;
+  this._applicationId = applicationId;
+  this._applicationVersion = applicationVersion;
+  
   this._validSession = false;
   this._sessionID = null;
 };
@@ -35,30 +38,33 @@ HoneywellAlarmNet.prototype.init = function(config) {
       self._soapClient = null;
       return;
     }
-
     self._soapClient = client;
     console.log('client.describe: ' + util.inspect(client.describe()));
-    client.AuthenticateUserLoginEx({
-      userName: self._userName,
-      password: self._password,
-      ApplicationID: 14588,
-      ApplicationVersion: '3.7.1'
-    }, function(err, result, raw, soapHeader){
-      console.log('client.AuthenticateUserLoginEx: ' + util.inspect(result));
-      if (result.AuthenticateUserLoginExResult.ResultCode >=0) {
-        self._validSession = true;
-        self._sessionID = result.AuthenticateUserLoginExResult.SessionID;
-      } else {
-        self._validSession = false;
-        self._sessionID = null;
-      }
-      console.log('self._validSession: ' + self._validSession);
-      console.log('self._sessionID: ' + self._sessionID);
-    });
+    self._authenticateUser()
   });
-
 };
 
+HoneywellAlarmNet.prototype._authenticateUser = function() {
+  var self = this;
+  this._soapClient.AuthenticateUserLoginEx({
+    userName: self._userName,
+    password: self._password,
+    ApplicationID: self._applicationId,
+    ApplicationVersion: self._applicationVersion
+  }, function(err, result, raw, soapHeader){
+    console.log('client.AuthenticateUserLoginEx: ' + util.inspect(result));
+    if (result.AuthenticateUserLoginExResult.ResultCode >=0) {
+      self._validSession = true;
+      self._sessionID = result.AuthenticateUserLoginExResult.SessionID;
+    } else {
+      self._validSession = false;
+      self._sessionID = null;
+    }
+    console.log('self._validSession: ' + self._validSession);
+    console.log('self._sessionID: ' + self._sessionID);
+  });
+}
+  
 HoneywellAlarmNet.prototype.armStay = function(cb) {
   var self = this;
   
