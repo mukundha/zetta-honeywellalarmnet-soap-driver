@@ -16,7 +16,7 @@ HoneywellAlarmNetScout.prototype.init = function(next) {
 
   var self = this;
   
-  var query = this.server.where({type: 'security'});
+  var query = this.server.where({type: 'security-system'});
   this.server.find(query, function(err, results) {
     if (results[0]) {
       self.provision(results[0], HoneywellAlarmNet, self.soapURL, self.userName, self.password, self.applicationId, self.applicationVersion);
