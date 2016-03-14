@@ -122,44 +122,6 @@ HoneywellAlarmNet.prototype._checkSecurityPanelLastCommandState = function(arg) 
 }
 
 
-// HoneywellAlarmNet.prototype._authenticateUser = function() {
-//   var self = this;
-//   this._soapClient.AuthenticateUserLoginEx({
-//     userName: self._userName,
-//     password: self._password,
-//     ApplicationID: self._applicationId,
-//     ApplicationVersion: self._applicationVersion
-//   }, function(err, result, raw, soapHeader){
-//     // TODO: handle err
-//     console.log('_authenticateUser: ' + util.inspect(result));
-//     if (result.AuthenticateUserLoginExResult.ResultCode >=0) {
-//       self._validSession = true;
-//       self._sessionID = result.AuthenticateUserLoginExResult.SessionID;
-//       // setInterval(function(){self._getStatus()}, 250);
-//     } else {
-//       self._validSession = false;
-//       self._sessionID = null;
-//     }
-//     console.log('self._validSession: ' + self._validSession);
-//     console.log('self._sessionID: ' + self._sessionID);
-//   });
-// }
-
-// HoneywellAlarmNet.prototype._getStatus = function() {
-//   var self = this;
-//   this._soapClient.GetPanelFullStatusByDeviceID({
-//     SessionID: this._sessionID,
-//     DeviceID: 771327,
-//     LastUpdatedTimestampTicks: self._lastUpdatedTimestampTicks,
-//     PartitionID: 1
-//   }, function(err, result, raw, soapHeader) {
-//     console.log('client._getStatus: ' + util.inspect(result));
-//     self._panelFullStatusByDeviceIDResult = result.GetPanelFullStatusByDeviceIDResult;
-//     console.log('self._panelFullStatusByDeviceIDResult: ' + util.inspect(self._panelFullStatusByDeviceIDResult))
-//   });
-//   this._lastUpdatedTimestampTicks = this._ticks();
-// }
-
 HoneywellAlarmNet.prototype._ticks = function() {
   var currentTime = new Date().getTime();
 
